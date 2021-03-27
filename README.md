@@ -1,5 +1,7 @@
 # atcoder-202004-lock
 
+[![CI](https://github.com/qryxip/atcoder-202004-lock/workflows/CI/badge.svg)](https://github.com/qryxip/atcoder-202004-lock/actions?workflow=CI)
+
 A workspace-hack package for AtCoder.
 
 We can easily fix the versions of crates that are available on AtCoder.
