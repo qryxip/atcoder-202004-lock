@@ -1,0 +1,13 @@
+[package]
+name = "atcoder-202004-lock"
+version = "0.0.0"
+authors = ["Ryo Yamashita <qryxip@gmail.com>"]
+edition = "2018"
+license = "CC0-1.0"
+description = "A workspace-hack package for AtCoder."
+repository = "https://github.com/qryxip/atcoder-202004-lock"
+keywords = ["atcoder", "competitive", "workspace-hack"]
+categories = ["development-tools::build-utils"]
+publish = false
+
+[dependencies]
