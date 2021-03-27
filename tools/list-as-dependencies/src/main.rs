@@ -35,18 +35,23 @@ fn main() {
         .expect("should be valid");
 
     for (i, Package { name, version, .. }) in packages.iter().enumerate() {
+        let name = name.as_str();
         let name_in_toml = &format!("package{:<02}", i);
-        output[name_in_toml]["package"] = toml_edit::value(name.as_str());
-        output[name_in_toml]["version"] = toml_edit::value(to_req(version));
+        output[name_in_toml]["package"] = toml_edit::value(name);
+        output[name_in_toml]["version"] = toml_edit::value(to_req(
+            version,
+            !["proconio", "proconio-derive"].contains(&name),
+        ));
     }
 
     println!("{}", output.to_string().trim_end());
 }
 
-fn to_req(version: &Version) -> String {
+fn to_req(version: &Version, exact: bool) -> String {
     // https://doc.rust-lang.org/cargo/reference/resolver.html#version-metadata
     format!(
-        "={}",
+        "{}{}",
+        if exact { "=" } else { "^" },
         Version {
             build: vec![],
             ..version.clone()

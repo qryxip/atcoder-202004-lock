@@ -50,8 +50,8 @@ package35 = { package = "petgraph", version = "=0.5.0", default-features = false
 package36 = { package = "ppv-lite86", version = "=0.2.6", default-features = false }
 package37 = { package = "proc-macro2", version = "=0.4.30", default-features = false }
 package38 = { package = "proc-macro2", version = "=1.0.10", default-features = false }
-package39 = { package = "proconio", version = "=0.3.6", default-features = false }
-package40 = { package = "proconio-derive", version = "=0.1.6", default-features = false }
+package39 = { package = "proconio", version = "^0.3.6", default-features = false }
+package40 = { package = "proconio-derive", version = "^0.1.6", default-features = false }
 package41 = { package = "quote", version = "=0.6.13", default-features = false }
 package42 = { package = "quote", version = "=1.0.3", default-features = false }
 package43 = { package = "rand", version = "=0.7.3", default-features = false }
