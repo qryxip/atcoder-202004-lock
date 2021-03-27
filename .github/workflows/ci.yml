@@ -71,18 +71,6 @@ jobs:
           profile: minimal
           components: clippy
 
-      - name: cargo-clippy (.)
-        uses: actions-rs/cargo@v1
-        with:
-          command: clippy
-          args: --all-targets -- -D warnings
-
-      - name: cargo-build (.)
-        uses: actions-rs/cargo@v1
-        with:
-          command: build
-          args: --all-targets
-
       - name: cargo-clippy (./tools/list-as-dependencies)
         uses: actions-rs/cargo@v1
         with:
