@@ -1,4 +1,4 @@
-use cargo_lock::{Lockfile, Package, SourceId};
+use cargo_lock::{Lockfile, Package};
 use itertools::Itertools as _;
 use semver::Version;
 use structopt::StructOpt;
@@ -23,41 +23,24 @@ fn main() {
 
     packages.retain(|Package { source, .. }| matches!(source, Some(s) if s.is_default_registry()));
 
-    let mut output = packages
-        .iter()
-        .map(|package| {
+    let mut output = (0..packages.len())
+        .map(|i| {
             format!(
-                "{} = {{ package = \"\", version = \"\", default-features = false }}\n",
-                to_name_in_toml(package),
+                "package{:<02} = {{ package = \"\", version = \"\", default-features = false }}\n",
+                i,
             )
         })
         .join("")
         .parse::<Document>()
         .expect("should be valid");
 
-    for package in &packages {
-        let name_in_toml = &to_name_in_toml(package);
-        output[name_in_toml]["package"] = toml_edit::value(package.name.as_str());
-        output[name_in_toml]["version"] = toml_edit::value(to_req(&package.version));
+    for (i, Package { name, version, .. }) in packages.iter().enumerate() {
+        let name_in_toml = &format!("package{:<02}", i);
+        output[name_in_toml]["package"] = toml_edit::value(name.as_str());
+        output[name_in_toml]["version"] = toml_edit::value(to_req(version));
     }
 
     println!("{}", output.to_string().trim_end());
-}
-
-fn to_name_in_toml(package: &Package) -> String {
-    format!(
-        "{}-{}",
-        package.name,
-        package
-            .version
-            .to_string()
-            .chars()
-            .map(|c| match c {
-                'a'..='z' | 'A'..='Z' | '0'..='9' | '_' => c,
-                _ => '-',
-            })
-            .collect::<String>()
-    )
 }
 
 fn to_req(version: &Version) -> String {
