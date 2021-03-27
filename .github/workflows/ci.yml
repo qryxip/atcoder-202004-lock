@@ -75,12 +75,12 @@ jobs:
         uses: actions-rs/cargo@v1
         with:
           command: clippy
-          args: --manifest-path ./tools/list-as-dependencies/Cargo.toml
+          args: --manifest-path ./tools/list-as-dependencies/Cargo.toml -- -D warnings
         if: startsWith(matrix.toolchain, 'stable-')
 
       - name: cargo-build (./tools/list-as-dependencies)
         uses: actions-rs/cargo@v1
         with:
           command: build
-          args: --manifest-path ./tools/list-as-dependencies/Cargo.toml -- -D warnings
+          args: --manifest-path ./tools/list-as-dependencies/Cargo.toml
         if: startsWith(matrix.toolchain, 'stable-')
